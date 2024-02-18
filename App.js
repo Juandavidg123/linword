@@ -1,10 +1,29 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View } from "react-native";
+import { Button } from "react-native-paper";
+import { Chip } from "react-native-paper";
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: "#cf2828",
+      }}
+    >
+      <View style={styles.container}>
+        <Chip elevation={5} onPress={() => console.log("Pressed")}>
+          Principal
+        </Chip>
+        <Chip elevation={5} onPress={() => console.log("Pressed")}>
+          Principal
+        </Chip>
+        <Chip elevation={5} onPress={() => console.log("Pressed")}>
+          Principal
+        </Chip>
+      </View>
+
+      <Text>Hello world!!</Text>
       <StatusBar style="auto" />
     </View>
   );
@@ -13,8 +32,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
