@@ -34,3 +34,6 @@ venv/
 
 # typescript
 *.tsbuildinfo
+
+# cache
+__pycache__
