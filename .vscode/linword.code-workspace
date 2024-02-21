@@ -1,0 +1,15 @@
+{
+  "folders": [
+    {
+      "path": "../frontend",
+      "name": "FrontEnd"
+    },
+    {
+      "path": "../backend",
+      "name": "BackEnd"
+    }
+  ],
+  "settings": {
+    "git.openRepositoryInParentFolders": "always",
+  }
+}
