@@ -1,13 +1,40 @@
 from flask import request, jsonify, Blueprint
-from register import db
-
+from db.connection import cur, conn
 
 loginbp = Blueprint('login', __name__)
 
-@loginbp.post('/login')
-def login():
-    data = request.json
-    for user in db:
-        if user["username"] == data["username"] and user["password"] == data["password"]:
-            return jsonify({"status": "success", "message": "Usuario logueado exitosamente", "token": user["token"]})
-    return jsonify({"status": "error", "message": "Usuario no encontrado"})
+@loginbp.post('/loginparent')
+def loginParent():
+    try:
+        data = request.json
+        username = data['username']
+        password = data['password']
+        cur.execute(f"SELECT * FROM users WHERE username = '{username}' AND password = '{password}'")
+
+        user = cur.fetchone()
+        if user:
+            return jsonify({'message': 'Logged in successfully', 'user': user})
+        else:
+            return jsonify({'message': 'User not found'})
+        
+    except Exception as e:
+        conn.rollback()
+        return jsonify({'message': 'Error', 'error': str(e)})
+    
+
+@loginbp.post('/loginchild')
+def loginChild():
+    try:
+        data = request.json
+        codechild = data['codechild']
+        cur.execute(f"SELECT * FROM users WHERE codechild = {codechild}")
+
+        user = cur.fetchone()
+        if user:
+            return jsonify({'message': 'Logged in successfully', 'user': user})
+        else:
+            return jsonify({'message': 'User not found'})
+        
+    except Exception as e:
+        conn.rollback()
+        return jsonify({'message': 'Error', 'error': str(e)})

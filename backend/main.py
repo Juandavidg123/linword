@@ -1,6 +1,7 @@
 from flask import Flask
-from register import registrobp
-from login import loginbp
+from register.register import registrobp
+from login.login import loginbp
+
 
 app = Flask(__name__)
 
