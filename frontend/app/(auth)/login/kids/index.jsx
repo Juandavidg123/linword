@@ -13,7 +13,7 @@ const index = () => {
   const submit = () => {
     signIn("kid", "kid");
     console.log("Texto ingresado:", text);
-    // router.push("/");
+    router.push("/");
   };
 
   return (
