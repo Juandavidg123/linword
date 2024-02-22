@@ -30,6 +30,10 @@ yarn-error.*
 
 # local env files
 .env*.local
+venv/
 
 # typescript
 *.tsbuildinfo
+
+# cache
+__pycache__
