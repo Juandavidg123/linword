@@ -1,4 +1,4 @@
-#Fichero para crear las tablas de la base de datos, solo ejecutar este fichero en caso de que no este creada la tabla
+#Fichero para visualozar la tabla users de la base de datos linword
 
 
 import psycopg2
