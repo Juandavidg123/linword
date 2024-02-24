@@ -28,3 +28,12 @@ def updateuser(cedula):
     except Exception as e:
         conn.rollback()
         return jsonify({'message': 'Error updating user', 'error': str(e)})
+    
+@usersbp.get('/users/<int:cedula>')
+def getuser(cedula):
+    try:
+        cur.execute(f"SELECT * FROM users WHERE cedula = {cedula}")
+        user = cur.fetchone()
+        return jsonify({'user': user})
+    except Exception as e:
+        return jsonify({'message': 'Error getting user', 'error': str(e)})
