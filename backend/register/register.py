@@ -21,4 +21,4 @@ def registro():
         return jsonify({'message': 'User created successfully'})
     except Exception as e:
         conn.rollback()
-        return jsonify({'message': 'Error creating user', 'error': str(e)})
+        return jsonify({'message': 'Error creating user', 'error': str(e)}), 400

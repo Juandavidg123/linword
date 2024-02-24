@@ -9,10 +9,12 @@ def deleteuser(cedula):
     try:
         cur.execute(f"DELETE FROM users WHERE cedula = {cedula}")
         conn.commit()
+        if cur.rowcount == 0:
+            return jsonify({'message': 'User not found'}), 404
         return jsonify({'message': 'User deleted successfully'})
     except Exception as e:
         conn.rollback()
-        return jsonify({'message': 'Error deleting user', 'error': str(e)})
+        return jsonify({'message': 'Error deleting user', 'error': str(e)}), 400
 
 @usersbp.put('/users/<int:cedula>')
 def updateuser(cedula):
@@ -27,13 +29,15 @@ def updateuser(cedula):
         return jsonify({'message': 'User updated successfully'})
     except Exception as e:
         conn.rollback()
-        return jsonify({'message': 'Error updating user', 'error': str(e)})
+        return jsonify({'message': 'Error updating user', 'error': str(e)}), 400
     
 @usersbp.get('/users/<int:cedula>')
 def getuser(cedula):
     try:
         cur.execute(f"SELECT * FROM users WHERE cedula = {cedula}")
         user = cur.fetchone()
+        if user is None:
+            return jsonify({'message': 'User not found'}), 404
         return jsonify({'user': user})
     except Exception as e:
-        return jsonify({'message': 'Error getting user', 'error': str(e)})
+        return jsonify({'message': 'Error getting user', 'error': str(e)}), 404
