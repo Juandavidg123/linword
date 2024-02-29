@@ -15,11 +15,11 @@ def loginParent():
         if user:
             return jsonify({'message': 'Logged in successfully', 'user': user})
         else:
-            return jsonify({'message': 'User not found'})
+            return jsonify({'message': 'User not found'}), 404
         
     except Exception as e:
         conn.rollback()
-        return jsonify({'message': 'Error', 'error': str(e)})
+        return jsonify({'message': 'Error', 'error': str(e)}), 400
     
 
 @loginbp.post('/loginchild')
@@ -33,8 +33,8 @@ def loginChild():
         if user:
             return jsonify({'message': 'Logged in successfully', 'user': user})
         else:
-            return jsonify({'message': 'User not found'})
+            return jsonify({'message': 'User not found'}), 404
         
     except Exception as e:
         conn.rollback()
-        return jsonify({'message': 'Error', 'error': str(e)})
+        return jsonify({'message': 'Error', 'error': str(e)}), 400
