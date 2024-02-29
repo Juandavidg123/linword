@@ -1,8 +1,12 @@
+import { useState } from "react";
 import FixView from "@/components/basic/FixView";
 import { router } from "expo-router";
-import { Button, Text } from "react-native-paper";
+import { useSession } from "@/hooks/useSession";
+import { Button, Text, TextInput } from "react-native-paper";
+import { StyleSheet, View, Image, ImageBackground } from "react-native";
 
 const Login = () => {
+  
   return (
     <FixView>
       <Text>Select:</Text>
