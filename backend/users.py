@@ -20,16 +20,24 @@ def deleteuser(cedula):
 def updateuser(cedula):
     try:
         data = request.json
-        username = data['username']
+        correo = data['correo']
         password = data['password']
         childname = data['childname']
-        role = data['role']
-        cur.execute(f"UPDATE users SET username = '{username}', password = '{password}', childname = '{childname}', role = '{role}' WHERE cedula = {cedula}")
-        conn.commit()
-        return jsonify({'message': 'User updated successfully'})
+
+        cur.execute(f"SELECT * FROM users WHERE cedula = {cedula}")
+        user = cur.fetchone()
+
+        if user is None:
+            return jsonify({'message': 'User not found'}), 404
+        
+        else:
+            cur.execute(f"UPDATE users SET correo = '{correo}', password = '{password}', childname = '{childname}' WHERE cedula = {cedula}")
+            conn.commit()
+            return jsonify({'message': 'User updated successfully'})
+
     except Exception as e:
         conn.rollback()
-        return jsonify({'message': 'Error updating user', 'error': str(e)}), 400
+        return jsonify({'message': 'Error updating user', 'error': str(e)}), 400 
     
 @usersbp.get('/users/<int:cedula>')
 def getuser(cedula):

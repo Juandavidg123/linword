@@ -7,9 +7,9 @@ loginbp = Blueprint('login', __name__)
 def loginParent():
     try:
         data = request.json
-        username = data['username']
+        correo = data['correo']
         password = data['password']
-        cur.execute(f"SELECT * FROM users WHERE username = '{username}' AND password = '{password}'")
+        cur.execute(f"SELECT * FROM users WHERE correo = '{correo}' AND password = '{password}'")
 
         user = cur.fetchone()
         if user:
@@ -22,19 +22,3 @@ def loginParent():
         return jsonify({'message': 'Error', 'error': str(e)}), 400
     
 
-@loginbp.post('/loginchild')
-def loginChild():
-    try:
-        data = request.json
-        codechild = data['codechild']
-        cur.execute(f"SELECT * FROM users WHERE codechild = {codechild}")
-
-        user = cur.fetchone()
-        if user:
-            return jsonify({'message': 'Logged in successfully', 'user': user})
-        else:
-            return jsonify({'message': 'User not found'}), 404
-        
-    except Exception as e:
-        conn.rollback()
-        return jsonify({'message': 'Error', 'error': str(e)}), 400
