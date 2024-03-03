@@ -1,14 +1,9 @@
 #Fichero para visualozar la tabla users de la base de datos linword
 
-
 import psycopg2
+from connection import conn, cur
 
 try:
-    conn = psycopg2.connect(
-        "postgres://linword_user:mqd4wIWFLQAqI0XSQoEQhBLjDeEtqbQW@dpg-cncijceg1b2c739i83jg-a.oregon-postgres.render.com/linword"
-    )
-    cur = conn.cursor()
-
     cur.execute("SELECT * FROM users")
     print(cur.fetchall())
 
