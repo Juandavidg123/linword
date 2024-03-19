@@ -9,7 +9,7 @@ export default function AppLayout() {
     return <Text>Loading...</Text>;
   }
 
-  if (!session) return <Redirect href="/login/kids" />;
+  if (!session) return <Redirect href="/login/" />;
 
   return <Router />;
 }

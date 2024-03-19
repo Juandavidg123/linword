@@ -2,7 +2,7 @@ import FixView from "@/components/basic/FixView";
 import { StyleSheet, View } from "react-native";
 import { Button, Card, Text, Chip, Avatar } from "react-native-paper";
 
-const LeftContent = props => <Avatar.Icon {...props} icon="folder" />
+const LeftContent = (props) => <Avatar.Icon {...props} icon="folder" />;
 
 export default function Page() {
   return (
@@ -37,12 +37,8 @@ export default function Page() {
               }}
             />
             <Card.Actions>
-              <Button onPress={() => console.log("presione")}>
-                Cancel
-              </Button>
-              <Button onPress={() => console.log("presione")}>
-                Ok
-              </Button>
+              <Button onPress={() => console.log("presione")}>Cancel</Button>
+              <Button onPress={() => console.log("presione")}>Ok</Button>
             </Card.Actions>
           </Card>
         </View>

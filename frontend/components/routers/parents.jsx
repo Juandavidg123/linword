@@ -19,7 +19,7 @@ const Router = () => {
       )}
     >
       <Tabs.Screen
-        name="parents"
+        name="index"
         options={{
           tabBarLabel: "Parents",
           tabBarIcon: ({ color, size }) => (
