@@ -1,3 +1,4 @@
+import hashlib
 from flask import request, jsonify, Blueprint
 from db.connection import cur, conn
 
@@ -12,10 +13,11 @@ def registro():
         password = data['password']
         childname = data['childname']
 
+        hashed = hashlib.sha256(password.encode('utf-8')).hexdigest()
 
-        cur.execute(f"INSERT INTO users (cedula, correo, password, childname) VALUES ({cedula}, '{correo}', '{password}', '{childname}')")  
+        cur.execute("INSERT INTO users (cedula, correo, password, childname) VALUES (%s, %s, %s, %s)", (cedula, correo, hashed, childname))
         conn.commit()
-        
+
         return jsonify({'message': 'User created successfully'})
     except Exception as e:
         conn.rollback()
