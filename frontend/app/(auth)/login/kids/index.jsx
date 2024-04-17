@@ -8,18 +8,14 @@ import { StyleSheet, View, Image, ImageBackground } from "react-native";
 const index = () => {
   const { signIn } = useSession();
 
-  const [email, setEmail] = useState(""); // Estado local para almacenar el texto ingresado
-  const [contrasena, setContrasena] = useState("");
+  const [text, setText] = useState(""); // Estado local para almacenar el texto ingresado
 
-  const submitLogin = () => {
-    signIn("parent", "parent");
-    console.log("Correo Electronico ingresado:", email);
-    console.log("Contraseña ingresada:", contrasena);
-
+  const submit = () => {
+    signIn("kid", "kid");
+    console.log("Texto ingresado:", text);
     router.push("/");
   };
 
-  const submitNewUser = () => router.push("/register");
   return (
     <FixView>
       <View style={styles.container}>
@@ -45,26 +41,17 @@ const index = () => {
           <View style={styles.inputContainer}>
             <TextInput
               style={styles.input}
-              onChangeText={setEmail}
-              value={email}
-              placeholder="Ingresar corr"
-            />
-            <TextInput
-              style={styles.input}
-              onChangeText={setContrasena}
-              value={contrasena}
-              placeholder="Ingresar contraseña"
+              onChangeText={setText}
+              value={text}
+              placeholder="Ingrese el código"
             />
           </View>
         </ImageBackground>
 
         {/* Contenedor del botón "Entrar" */}
         {/* <View style={styles.topBar}> */}
-        <Button title="Entrar" onPress={submitLogin}>
+        <Button title="Entrar" onPress={submit}>
           Entrar
-        </Button>
-        <Button title="Crear Cuenta" onPress={submitNewUser}>
-          Crear Cuenta
         </Button>
         {/* </View> */}
       </View>
@@ -98,7 +85,7 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 40,
-    width: "100%", // Establece el ancho del campo de entrada
+    width: "80%", // Establece el ancho del campo de entrada
     borderColor: "gray",
     borderWidth: 1,
     paddingLeft: 10,
