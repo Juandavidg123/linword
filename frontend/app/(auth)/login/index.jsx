@@ -8,65 +8,61 @@ import { StyleSheet, View, Image, ImageBackground } from "react-native";
 const index = () => {
   const { signIn } = useSession();
 
-  const [email, setEmail] = useState(""); // Estado local para almacenar el texto ingresado
+  const [email, setEmail] = useState("");
   const [contrasena, setContrasena] = useState("");
 
   const submitLogin = () => {
     signIn("parent", "parent");
     console.log("Correo Electronico ingresado:", email);
     console.log("Contraseña ingresada:", contrasena);
-
     router.push("/");
   };
 
   const submitNewUser = () => router.push("/register");
+
   return (
     <FixView>
+      <View style={styles.logoContainer}>
+        <Image style={styles.logo} source={require('@/assets/linword.png')}/>
+      </View>
       <View style={styles.container}>
-        {/* Fondo de la aplicación con una imagen de fondo */}
-        <ImageBackground
-          source={{
-            uri: "https://th.bing.com/th/id/R.8c96e3f149ca3f71f97ed35f8d783669?rik=PaaShqIFVYrEqQ&riu=http%3a%2f%2fwww.solofondos.com%2fwp-content%2fuploads%2f2015%2f11%2f1b5ef6b54973.jpg&ehk=VqJj1Zb9%2bJJo1AELOpIYwzOtRqxM1l5MS%2fMbGYvjp1I%3d&risl=&pid=ImgRaw&r=0",
-          }}
-          resizeMode="cover"
-          style={styles.backgroundImage}
-        >
-          {/* Contenedor de la imagen del logo */}
-          <View style={styles.imageContainer}>
-            <Image
-              style={styles.tinyLogo}
-              source={{
-                uri: "https://i.pinimg.com/originals/d8/38/0e/d8380e8e96f5e86d6f0ec363e5a37f0b.png",
-              }}
-            />
+        <View style={styles.inputContainer}>
+          <Text style={styles.titulo}>Iniciar Sesión</Text>
+          <Text>Correo Electrónico</Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={setEmail}
+            value={email}
+            placeholder=" "
+          />
+          <Text>Contraseña</Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={setContrasena}
+            value={contrasena}
+            placeholder=" "
+          />
+          <View style={styles.buttonWrapper}>
+            <Button
+              mode="contained-tonal"
+              onPress={submitLogin}
+              style={styles.button}
+            >
+              Entrar
+            </Button>
+            <Button
+              mode="contained-tonal"
+              onPress={submitNewUser}
+              style={[styles.button, styles.registerButton]}
+            >
+              Registrarse
+            </Button>
           </View>
-
-          {/* Contenedor del campo de entrada de texto */}
-          <View style={styles.inputContainer}>
-            <TextInput
-              style={styles.input}
-              onChangeText={setEmail}
-              value={email}
-              placeholder="Ingresar corr"
-            />
-            <TextInput
-              style={styles.input}
-              onChangeText={setContrasena}
-              value={contrasena}
-              placeholder="Ingresar contraseña"
-            />
-          </View>
-        </ImageBackground>
-
-        {/* Contenedor del botón "Entrar" */}
-        {/* <View style={styles.topBar}> */}
-        <Button title="Entrar" onPress={submitLogin}>
-          Entrar
-        </Button>
-        <Button title="Crear Cuenta" onPress={submitNewUser}>
-          Crear Cuenta
-        </Button>
-        {/* </View> */}
+        </View>
+        <View style={styles.imageContainer}>
+          <Image style={styles.cornerimage} source={require('@/assets/buho.png')}/>
+          <Image style={styles.cornerImage} source={require('@/assets/books.png')} />
+        </View>
       </View>
     </FixView>
   );
@@ -76,32 +72,69 @@ export default index;
 
 const styles = StyleSheet.create({
   container: {
+    padding: 10,
     flex: 1,
-    flexDirection: "column",
+
   },
-  topBar: {
-    position: "absolute", // Coloca el contenedor en una posición absoluta
-    top: 100, // Desplaza el contenedor hacia abajo desde la parte superior
-    right: 20, // Desplaza el contenedor hacia la izquierda desde el borde derecho
-    width: 100, // Establece el ancho del contenedor
+  logoContainer: {
+    marginTop: 15, 
+    alignItems: 'center', 
   },
-  backgroundImage: {
-    flex: 1,
-    width: "100%",
-    height: "100%",
-    justifyContent: "center", // Centra los elementos verticalmente
-    alignItems: "center", // Centra los elementos horizontalmente
+  titulo: {
+    fontSize: 40,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 20,
   },
-  tinyLogo: {
-    height: 300,
-    width: 300,
+  inputContainer: {
+    marginBottom: 50,
+    backgroundColor: '#F7F2FA',
+    borderRadius: 15,
+    padding: 20,
   },
   input: {
     height: 40,
-    width: "100%", // Establece el ancho del campo de entrada
-    borderColor: "gray",
+    width: '100%',
+    borderColor: 'blac0k',
     borderWidth: 1,
-    paddingLeft: 10,
-    backgroundColor: "white", // Establece el color de fondo del campo de entrada
+    marginBottom: 10,
+    borderRadius: 5,
   },
+  buttonWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  button: {
+    flex: 1,
+    height: 50,
+    marginBottom:50,
+    marginHorizontal: 5,
+    borderRadius: 20,
+  },
+  registerButton: {
+    marginLeft: 10,
+  },
+  imageContainer: {
+    position: 'relative',
+    bottom: 100,
+
+  },
+  cornerImage: {
+    width: 120,
+    height: 120,
+    position:'relative',
+    bottom: 200,
+
+  },
+  cornerimage: {
+    width: 200,
+    height: 200,
+    position: 'relative',
+    bottom: -120,
+    right: -200
+  },
+  logo:{
+    width:150,
+    height:150,
+  }
 });
