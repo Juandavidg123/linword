@@ -1,14 +1,21 @@
 import React, { useState } from 'react';
 import { Button } from 'react-native-paper';
 import { View, Text, TextInput, StyleSheet,Image } from 'react-native';
+import { useSession } from "@/hooks/useSession";
 import FixView from '@/components/basic/FixView';
+import { router } from "expo-router";
 
 const Register = () => {
+  const { signIn } = useSession();
   const [nombre, setNombre] = useState('');
   const [email, setEmail] = useState('');
   const [contrasena, setContrasena] = useState('');
   const [verificPassword, setVerificPassword] = useState('');
 
+  const submitLogin = () => {
+    signIn("parent", "parent");
+    router.push("/");
+  };
 
   return (
     <FixView>
@@ -47,7 +54,7 @@ const Register = () => {
         <View style={styles.buttonContainer}>
           <Button
             mode="contained-tonal"
-            onPress={() => console.log('Pressed')}
+            onPress={(submitLogin)}
             style={styles.button}
           >
             Crear Cuenta
@@ -79,7 +86,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   inputContainer: {
-    marginBottom: 50,
+    marginBottom: 230,
     backgroundColor: '#F7F2FA',
     borderRadius: 15,
     padding: 20,
@@ -104,19 +111,22 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   imageContainer: {
-    position: 'absolute',
-    bottom: 160,
-    right: 10,
+    position: 'relative',
+    bottom: 290,
+    right: -250,
   },
   cornerImage: {
     width: 120,
     height: 120,
+    position:'relative',
+    bottom: 1,
+    right: 1,
+    
   },
   cornerimage: {
     width: 200,
     height: 200,
-    position: 'absolute',
-    bottom: 0,
-    right: 200
+    position: 'relative',
+    bottom: -690,
   },
 });
