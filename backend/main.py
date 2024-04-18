@@ -1,7 +1,7 @@
 from flask import Flask
-from register.register import registrobp
-from login.login import loginbp
-from users import usersbp
+from routes.register import registrobp
+from routes.login import loginbp
+from routes.user import usersbp
 
 app = Flask(__name__)
 
