@@ -8,7 +8,7 @@ def SignIn():
         data = request.json
         correo = data['correo']
         password = data['password']
-        cur.execute("SELECT * FROM users WHERE correo = %s", (correo))
+        cur.execute(f"SELECT * FROM users WHERE correo = '{correo}'")
         user = cur.fetchone()
 
         if user:
