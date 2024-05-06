@@ -21,6 +21,7 @@ def SignIn():
             return jsonify({'message': 'User not found'}), 404
     except Exception as e:
         conn.rollback()
+        print(e)
         return jsonify({'message': 'Error', 'error': str(e)}), 400
 
 def SignUp():
@@ -39,4 +40,5 @@ def SignUp():
         return jsonify({'message': 'User created successfully'})
     except Exception as e:
         conn.rollback()
+        print(e)
         return jsonify({'message': 'Error creating user', 'error': str(e)}), 400
