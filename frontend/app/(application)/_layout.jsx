@@ -1,6 +1,6 @@
 import { Redirect } from "expo-router";
 import { useSession } from "@/hooks/useSession";
-import Router from "@/components/routers/parents";
+import Router from "@/components/routers/Router";
 
 export default function AppLayout() {
   const { session, isLoading, role } = useSession();

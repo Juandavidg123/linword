@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
+
 export const AuthContext = React.createContext(null);
 
 export function SessionProvider({ children }) {
@@ -9,34 +10,42 @@ export function SessionProvider({ children }) {
 
   const signIn = async (email, password) => {
     try {
-      const response = await axios
-        .post("http://192.168.10.36:5000/loginparent", { "correo": email, "password": password })
+      const response = await axios.post(
+        `${process.env.EXPO_PUBLIC_API_URL}/loginparent`,
+        {
+          correo: email,
+          password: password,
+        }
+      );
       console.log(response.data);
       setSession({ email, password });
-      return true
-    }
-    catch (e) {
-      console.error("Error al iniciar sesión:", e)
-      return false
+      return true;
+    } catch (e) {
+      console.error("Error al iniciar sesión:", e);
+      return false;
     }
   };
 
   const signUp = async (cedula, email, contrasena, chilname) => {
     try {
-      const response = await axios
-        .post("http://192.168.10.36:5000/register", { "cedula": cedula, "correo": email, "password": contrasena, "childname": chilname })
+      const response = await axios.post(
+        `${process.env.EXPO_PUBLIC_API_URL}/register`,
+        {
+          cedula: cedula,
+          correo: email,
+          password: contrasena,
+          childname: chilname,
+        }
+      );
       console.log(response.data);
       setSession({ cedula, email, contrasena, chilname });
-      return true
-    }
-    catch (e) {
+      return true;
+    } catch (e) {
       console.error("Error al iniciar sesión:", e);
-      return false
+      return false;
     }
-
-
   };
-  const signOut = async () => { };
+  const signOut = async () => {};
 
   return (
     <AuthContext.Provider
@@ -52,4 +61,4 @@ export function SessionProvider({ children }) {
       {children}
     </AuthContext.Provider>
   );
-};
+}

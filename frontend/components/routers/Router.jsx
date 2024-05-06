@@ -28,15 +28,14 @@ const Router = () => {
         }}
       />
       <Tabs.Screen
-        name="book"
+        name="library"
         options={{
-          tabBarLabel: "To read",
+          tabBarLabel: "Library",
           tabBarIcon: ({ color, size }) => (
-            <Icon name="book" size={size} color={color} />
+            <Icon name="account-child" size={size} color={color} />
           ),
         }}
       />
-    
     </Tabs>
   );
 };

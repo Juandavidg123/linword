@@ -13,10 +13,11 @@ const index = () => {
   const [contrasena, setContrasena] = useState("");
 
   const submitLogin = async () => {
-    if(await signIn(email, contrasena)===true)
-    {router.push("/")}
-    else {console.log("Error en autenticacion")}
-
+    if ((await signIn(email, contrasena)) === true) {
+      router.push("/");
+    } else {
+      console.log("Error en autenticacion");
+    }
   };
 
   const submitNewUser = () => router.push("/register");
@@ -24,7 +25,7 @@ const index = () => {
   return (
     <FixView>
       <View style={styles.logoContainer}>
-        <Image style={styles.logo} source={require('@/assets/linword.png')}/>
+        <Image style={styles.logo} source={require("@/assets/linword.png")} />
       </View>
       <View style={styles.container}>
         <View style={styles.inputContainer}>
@@ -61,8 +62,14 @@ const index = () => {
           </View>
         </View>
         <View style={styles.imageContainer}>
-          <Image style={styles.cornerimage} source={require('@/assets/buho.png')}/>
-          <Image style={styles.cornerImage} source={require('@/assets/books.png')} />
+          <Image
+            style={styles.cornerimage}
+            source={require("@/assets/buho.png")}
+          />
+          <Image
+            style={styles.cornerImage}
+            source={require("@/assets/books.png")}
+          />
         </View>
       </View>
     </FixView>
@@ -75,40 +82,39 @@ const styles = StyleSheet.create({
   container: {
     padding: 10,
     flex: 1,
-
   },
   logoContainer: {
-    marginTop: 15, 
-    alignItems: 'center', 
+    marginTop: 15,
+    alignItems: "center",
   },
   titulo: {
     fontSize: 40,
-    fontWeight: 'bold',
-    textAlign: 'center',
+    fontWeight: "bold",
+    textAlign: "center",
     marginBottom: 20,
   },
   inputContainer: {
     marginBottom: 50,
-    backgroundColor: '#F7F2FA',
+    backgroundColor: "#F7F2FA",
     borderRadius: 15,
     padding: 20,
   },
   input: {
     height: 40,
-    width: '100%',
-    borderColor: 'blac0k',
+    width: "100%",
+    borderColor: "blac0k",
     borderWidth: 1,
     marginBottom: 10,
     borderRadius: 5,
   },
   buttonWrapper: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   button: {
     flex: 1,
     height: 50,
-    marginBottom:50,
+    marginBottom: 50,
     marginHorizontal: 5,
     borderRadius: 20,
   },
@@ -116,26 +122,24 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   imageContainer: {
-    position: 'relative',
+    position: "relative",
     bottom: 100,
-
   },
   cornerImage: {
     width: 120,
     height: 120,
-    position:'relative',
+    position: "relative",
     bottom: 200,
-
   },
   cornerimage: {
     width: 200,
     height: 200,
-    position: 'relative',
+    position: "relative",
     bottom: -120,
-    right: -200
+    right: -200,
   },
-  logo:{
-    width:150,
-    height:150,
-  }
+  logo: {
+    width: 150,
+    height: 150,
+  },
 });

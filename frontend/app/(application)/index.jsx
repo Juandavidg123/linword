@@ -1,22 +1,16 @@
-import { useState } from "react";
+import React from "react";
 import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
   View,
-  FlatList,
-  Image,
   Dimensions,
   SafeAreaView,
+  Image,
   Animated,
   ScrollView,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import React from "react";
-import FixView from "@/components/basic/FixView";
-import { Button, Text, Avatar, Divider, Chip } from "react-native-paper";
-import index from "./parents";
-
-const LeftContent = (props) => <Avatar.Icon {...props} icon="folder" />;
+import { Button, Text, Divider, Chip } from "react-native-paper";
 
 const portadasLibros = [
   "https://www.ecured.cu/images/0/06/Los-tres-cerditos.jpg",
@@ -84,7 +78,7 @@ export default function Page() {
       <View>
         <Text style={styles.TitleTop}>
           <Image style={styles.logo} source={require("@/assets/linword.png")} />{" "}
-          Lindword
+          Linword
         </Text>
       </View>
       <ScrollView>
@@ -149,33 +143,75 @@ export default function Page() {
             Aventuras
           </Chip>
         </View>
-        <View style={{
-          backgroundColor:"#F7F2FA",
-          borderRadius: 35,
-          marginTop: 10,
-        }}>
+        <View
+          style={{
+            backgroundColor: "#F7F2FA",
+            borderRadius: 35,
+            marginTop: 10,
+          }}
+        >
           <View style={styles.books}>
-            <Image style={styles.portadas} source={{uri: "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1387077522i/19471915.jpg",}} />
-            <Image style={styles.portadas} source={{uri: "https://www.picarona.net/wp-content/uploads/2016/01/20150701101706.jpg",}} />
+            <Image
+              style={styles.portadas}
+              source={{
+                uri: "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1387077522i/19471915.jpg",
+              }}
+            />
+            <Image
+              style={styles.portadas}
+              source={{
+                uri: "https://www.picarona.net/wp-content/uploads/2016/01/20150701101706.jpg",
+              }}
+            />
           </View>
           <View style={styles.Botones}>
-          <Button style={styles.Botonleer} icon="glasses" mode="contained" onPress={() => console.log('Pressed')}>
-            Leer
-          </Button>
-          <Button style={styles.Botonleer} icon="glasses" mode="contained" onPress={() => console.log('Pressed')}>
-            Leer
+            <Button
+              style={styles.Botonleer}
+              icon="glasses"
+              mode="contained"
+              onPress={() => console.log("Pressed")}
+            >
+              Leer
+            </Button>
+            <Button
+              style={styles.Botonleer}
+              icon="glasses"
+              mode="contained"
+              onPress={() => console.log("Pressed")}
+            >
+              Leer
             </Button>
           </View>
           <View style={styles.books}>
-            <Image style={styles.portadas} source={{uri: "https://images.cdn1.buscalibre.com/fit-in/360x360/f6/5e/f65e3fedc2a233b39a63403c0fe28bb5.jpg",}} />
-            <Image style={styles.portadas} source={{uri: "https://images.cdn1.buscalibre.com/fit-in/360x360/43/b0/43b064a77a3e56ad9b0f16ed2f21a1f6.jpg",}} />
+            <Image
+              style={styles.portadas}
+              source={{
+                uri: "https://images.cdn1.buscalibre.com/fit-in/360x360/f6/5e/f65e3fedc2a233b39a63403c0fe28bb5.jpg",
+              }}
+            />
+            <Image
+              style={styles.portadas}
+              source={{
+                uri: "https://images.cdn1.buscalibre.com/fit-in/360x360/43/b0/43b064a77a3e56ad9b0f16ed2f21a1f6.jpg",
+              }}
+            />
           </View>
           <View style={styles.Botones}>
-          <Button style={styles.Botonleer} icon="glasses" mode="contained" onPress={() => console.log('Pressed')}>
-            Leer
-          </Button>
-          <Button style={styles.Botonleer} icon="glasses" mode="contained" onPress={() => console.log('Pressed')}>
-            Leer
+            <Button
+              style={styles.Botonleer}
+              icon="glasses"
+              mode="contained"
+              onPress={() => console.log("Pressed")}
+            >
+              Leer
+            </Button>
+            <Button
+              style={styles.Botonleer}
+              icon="glasses"
+              mode="contained"
+              onPress={() => console.log("Pressed")}
+            >
+              Leer
             </Button>
           </View>
         </View>
@@ -185,7 +221,7 @@ export default function Page() {
 }
 
 const styles = StyleSheet.create({
-  Description:{
+  Description: {
     flexDirection: "row",
     justifyContent: "flex-start",
     alignItems: "flex-start",
@@ -193,38 +229,38 @@ const styles = StyleSheet.create({
   SafeAreaView: {
     backgroundColor: "white",
   },
-  Botones:{
+  Botones: {
     flexDirection: "row",
     gap: 75,
-    marginLeft: 25, 
+    marginLeft: 25,
   },
-  Botonleer:{
+  Botonleer: {
     marginTop: 0,
     marginLeft: 25,
     marginBottom: 10,
   },
-  portadas:{
+  portadas: {
     width: 150,
     height: 200,
     backgroundColor: "blue",
-    resizeMode: "cover", 
+    resizeMode: "cover",
     borderRadius: 24,
-    gap:50,
-    marginBottom:0,
+    gap: 50,
+    marginBottom: 0,
   },
   bookContainer: {
     marginBottom: 55,
-    backgroundColor: '#FFF',
+    backgroundColor: "#FFF",
     borderRadius: 10,
   },
-  books:{
+  books: {
     flexDirection: "row",
     marginTop: 25,
     width: 380,
     marginHorizontal: 10,
     padding: 10,
     borderRadius: 35,
-    gap:50,
+    gap: 50,
     backgroundColor: "#F7F2FA",
     alignItems: "flex-start",
   },
