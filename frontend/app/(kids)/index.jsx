@@ -1,16 +1,16 @@
 import FixView from "@/components/basic/FixView";
 import { StyleSheet, View } from "react-native";
-import { Button, Card, Text, Chip, Avatar } from "react-native-paper";
+import { Button, Card, Text, Chip, Avatar, Appbar } from "react-native-paper";
 
 const LeftContent = props => <Avatar.Icon {...props} icon="folder" />
 
 export default function Page() {
   return (
     <FixView>
-      <View style={{ flex: 1, backgroundColor: "#FEFBF6" }}>
-        <View style={styles.container}>
+      <View style = {{ flex: 1, backgroundColor: "#FEFBF6" }}>
+        <View style = {styles.container}>
           <Chip elevation={5} onPress={() => console.log("Pressed")}>
-            Principal
+            Gays
           </Chip>
           <Chip elevation={5} onPress={() => console.log("Pressed")}>
             Libros
@@ -33,7 +33,7 @@ export default function Page() {
             </Card.Content>
             <Card.Cover
               source={{
-                uri: "https://img.freepik.com/vector-gratis/dibujado-mano-ilustracion-tres-cerditos_23-2149856074.jpg?t=st=1670950763~exp=1670951363~hmac=87effe82c8d8add0280081f97a98e6e6fd5c28a15f7ec02c45deeb7834f5c4fb",
+                uri: "https://imagenes.20minutos.es/files/image_1920_1080/uploads/imagenes/2023/06/15/el-patito-feo.jpeg",
               }}
             />
             <Card.Actions>
