@@ -8,19 +8,25 @@ def SignIn():
         data = request.json
         correo = data['correo']
         password = data['password']
-        cur.execute("SELECT * FROM users WHERE correo = %s", (correo))
+        cur.execute(f"SELECT * FROM users WHERE correo = '{correo}'")
         user = cur.fetchone()
 
         if user:
             hashed = hashlib.sha256(password.encode('utf-8')).hexdigest()
             if hashed == user[2]:
-                return jsonify({'message': 'Logged in successfully', 'user': user})
+                dict_user = {
+                    'cedula': user[0],
+                    'correo': user[1],
+                    'childname': user[3]
+                }
+                return jsonify({'message': 'Logged in successfully', 'user': dict_user})
             else:
                 return jsonify({'message': 'Invalid credentials'}), 401
         else:
             return jsonify({'message': 'User not found'}), 404
     except Exception as e:
         conn.rollback()
+        print(e)
         return jsonify({'message': 'Error', 'error': str(e)}), 400
 
 def SignUp():
@@ -39,4 +45,5 @@ def SignUp():
         return jsonify({'message': 'User created successfully'})
     except Exception as e:
         conn.rollback()
+        print(e)
         return jsonify({'message': 'Error creating user', 'error': str(e)}), 400
