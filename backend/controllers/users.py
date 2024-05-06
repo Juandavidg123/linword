@@ -9,7 +9,12 @@ def getUser(Identification):
         user = cur.fetchone()
         if user is None:
             return jsonify({"message": "User not found"}), 404
-        return jsonify({"user": user})
+        dict_user = {
+                    'cedula': user[0],
+                    'correo': user[1],
+                    'childname': user[3]
+                }
+        return jsonify({"user": dict_user})
     except Exception as e:
         return jsonify({"message": "Error getting user", "error": str(e)}), 404
 
