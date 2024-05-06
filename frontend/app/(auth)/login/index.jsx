@@ -25,7 +25,7 @@ const index = () => {
   return (
     <FixView>
       <View style={styles.logoContainer}>
-        <Image style={styles.logo} source={require("@/assets/linword.png")} />
+        <Image style={styles.logo} source={require("@/assets/icon.png")} />
       </View>
       <View style={styles.container}>
         <View style={styles.inputContainer}>
@@ -64,11 +64,11 @@ const index = () => {
         <View style={styles.imageContainer}>
           <Image
             style={styles.cornerimage}
-            source={require("@/assets/buho.png")}
+            source={require("@/assets/img/buho.png")}
           />
           <Image
             style={styles.cornerImage}
-            source={require("@/assets/books.png")}
+            source={require("@/assets/img/books.png")}
           />
         </View>
       </View>

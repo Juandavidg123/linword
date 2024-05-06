@@ -77,7 +77,7 @@ export default function Page() {
       <BackDrop scrollX={scrollX} />
       <View>
         <Text style={styles.TitleTop}>
-          <Image style={styles.logo} source={require("@/assets/linword.png")} />{" "}
+          <Image style={styles.logo} source={require("@/assets/icon.png")} />
           Linword
         </Text>
       </View>
