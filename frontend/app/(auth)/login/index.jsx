@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import FixView from "@/components/basic/FixView";
 import { useSession } from "@/hooks/useSession";
 import { router } from "expo-router";
@@ -11,11 +12,11 @@ const index = () => {
   const [email, setEmail] = useState("");
   const [contrasena, setContrasena] = useState("");
 
-  const submitLogin = () => {
-    signIn("parent", "parent");
-    console.log("Correo Electronico ingresado:", email);
-    console.log("Contraseña ingresada:", contrasena);
-    router.push("/");
+  const submitLogin = async () => {
+    if(await signIn(email, contrasena)===true)
+    {router.push("/")}
+    else {console.log("Error en autenticacion")}
+
   };
 
   const submitNewUser = () => router.push("/register");

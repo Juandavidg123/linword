@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import axios from "axios";
 export const AuthContext = React.createContext(null);
 
 export function SessionProvider({ children }) {
@@ -8,20 +8,35 @@ export function SessionProvider({ children }) {
   const [role, setRole] = useState(null);
 
   const signIn = async (email, password) => {
-    if (email === "parent" && password === "parent") {
+    try {
+      const response = await axios
+        .post("http://192.168.10.36:5000/loginparent", { "correo": email, "password": password })
+      console.log(response.data);
       setSession({ email, password });
-      setRole("parent");
-      return true;
+      return true
     }
-    if (email === "kid" && password === "kid") {
-      setSession({ email, password });
-      setRole("kid");
-      return true;
+    catch (e) {
+      console.error("Error al iniciar sesión:", e)
+      return false
     }
-    return false;
   };
-  const signUp = async (email, password, role) => {};
-  const signOut = async () => {};
+
+  const signUp = async (cedula, email, contrasena, chilname) => {
+    try {
+      const response = await axios
+        .post("http://192.168.10.36:5000/register", { "cedula": cedula, "correo": email, "password": contrasena, "childname": chilname })
+      console.log(response.data);
+      setSession({ cedula, email, contrasena, chilname });
+      return true
+    }
+    catch (e) {
+      console.error("Error al iniciar sesión:", e);
+      return false
+    }
+
+
+  };
+  const signOut = async () => { };
 
   return (
     <AuthContext.Provider
@@ -37,4 +52,4 @@ export function SessionProvider({ children }) {
       {children}
     </AuthContext.Provider>
   );
-}
+};
