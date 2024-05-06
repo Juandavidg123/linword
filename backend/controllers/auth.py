@@ -14,7 +14,12 @@ def SignIn():
         if user:
             hashed = hashlib.sha256(password.encode('utf-8')).hexdigest()
             if hashed == user[2]:
-                return jsonify({'message': 'Logged in successfully', 'user': user})
+                dict_user = {
+                    'cedula': user[0],
+                    'correo': user[1],
+                    'childname': user[3]
+                }
+                return jsonify({'message': 'Logged in successfully', 'user': dict_user})
             else:
                 return jsonify({'message': 'Invalid credentials'}), 401
         else:

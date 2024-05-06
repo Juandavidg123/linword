@@ -1,4 +1,4 @@
-#Fichero para visualozar la tabla users de la base de datos linword
+#Fichero para visualizar la tabla users de la base de datos linword
 
 import psycopg2
 from connection import conn, cur
