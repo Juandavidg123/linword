@@ -1,80 +1,25 @@
 import React from "react";
-import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
   View,
   Dimensions,
-  SafeAreaView,
   Image,
   Animated,
   ScrollView,
 } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
 import { Button, Text, Divider, Chip } from "react-native-paper";
+import BackDrop, { book_cover } from "@/components/basic/BackDrop";
 import logo from "@/assets/icon.png";
 
-const book_cover = [
-  "https://www.ecured.cu/images/0/06/Los-tres-cerditos.jpg",
-  "https://imagenes.20minutos.es/files/image_1920_1080/uploads/imagenes/2021/11/11/pinocho.jpeg",
-  "https://imagenes.20minutos.es/files/image_1920_1080/uploads/imagenes/2023/06/15/el-patito-feo.jpeg",
-];
-
 const width = Dimensions.get("window").width;
-const height = Dimensions.get("window").height;
-
 const WIDTH_SCREEN = width * 0.7;
 const GAP_LATERAL = (width - WIDTH_SCREEN) / 2;
-const GAP = 10;
-const HEIGHT_BACKDROP = height * 0.5;
-
-function BackDrop({ scrollX }) {
-  return (
-    <View
-      style={
-        ([{ height: HEIGHT_BACKDROP, width, position: "absolute", top: 0 }],
-        StyleSheet.absoluteFillObject)
-      }
-    >
-      {book_cover.map((img, i) => {
-        const inputRange = [
-          (i - 1) * WIDTH_SCREEN,
-          i * WIDTH_SCREEN,
-          (i + 1) * WIDTH_SCREEN,
-        ];
-
-        const outputRange = [0, 1, 0];
-
-        const opacity = scrollX.interpolate({ inputRange, outputRange });
-
-        return (
-          <Animated.Image
-            source={{ uri: img }}
-            key={i}
-            blurRadius={10}
-            style={[
-              {
-                height: HEIGHT_BACKDROP,
-                width,
-                position: "absolute",
-                top: 0,
-                opacity,
-              },
-            ]}
-          />
-        );
-      })}
-      <LinearGradient
-        colors={["transparent", "white"]}
-        style={{ height: HEIGHT_BACKDROP, width, position: "absolute", top: 0 }}
-      />
-    </View>
-  );
-}
 
 export default function Page() {
   const scrollX = React.useRef(new Animated.Value(0)).current;
+
   return (
-    <View>
+    <View style={styles.SafeAreaView}>
       <BackDrop scrollX={scrollX} />
       <View>
         <Text style={styles.TitleTop}>
@@ -83,7 +28,6 @@ export default function Page() {
         </Text>
       </View>
       <ScrollView>
-        <StatusBar hidden />
         <Animated.FlatList
           onScroll={Animated.event(
             [{ nativeEvent: { contentOffset: { x: scrollX } } }],
@@ -94,7 +38,7 @@ export default function Page() {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{
             paddingTop: 50,
-            paddingHorizontal: GAP_LATERAL
+            paddingHorizontal: GAP_LATERAL,
           }}
           decelerationRate={0}
           snapToInterval={WIDTH_SCREEN}
@@ -115,8 +59,8 @@ export default function Page() {
               <View style={{ width: WIDTH_SCREEN }}>
                 <Animated.View
                   style={{
-                    marginHorizontal: GAP,
-                    padding: GAP,
+                    marginHorizontal: 10,
+                    padding: 10,
                     borderRadius: 35,
                     backgroundColor: "white",
                     alignItems: "flex-start",
@@ -228,6 +172,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
   },
   SafeAreaView: {
+    marginTop: 10,
     backgroundColor: "white",
   },
   Botones: {
@@ -268,6 +213,7 @@ const styles = StyleSheet.create({
   },
   TitleTop: {
     fontSize: 32,
+    height: 70,
   },
   logo: {
     width: 50,
