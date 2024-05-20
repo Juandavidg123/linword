@@ -11,8 +11,9 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Button, Text, Divider, Chip } from "react-native-paper";
+import logo from "@/assets/icon.png";
 
-const portadasLibros = [
+const book_cover = [
   "https://www.ecured.cu/images/0/06/Los-tres-cerditos.jpg",
   "https://imagenes.20minutos.es/files/image_1920_1080/uploads/imagenes/2021/11/11/pinocho.jpeg",
   "https://imagenes.20minutos.es/files/image_1920_1080/uploads/imagenes/2023/06/15/el-patito-feo.jpeg",
@@ -21,24 +22,24 @@ const portadasLibros = [
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
-const ANCHO_PANTALLA = width * 0.7;
-const ESPACIO_LATERAL = (width - ANCHO_PANTALLA) / 2;
-const ESPACIO = 10;
-const ALTURA_BACKDROP = height * 0.5;
+const WIDTH_SCREEN = width * 0.7;
+const GAP_LATERAL = (width - WIDTH_SCREEN) / 2;
+const GAP = 10;
+const HEIGHT_BACKDROP = height * 0.5;
 
 function BackDrop({ scrollX }) {
   return (
     <View
       style={
-        ([{ height: ALTURA_BACKDROP, width, position: "absolute", top: 0 }],
+        ([{ height: HEIGHT_BACKDROP, width, position: "absolute", top: 0 }],
         StyleSheet.absoluteFillObject)
       }
     >
-      {portadasLibros.map((imagen, index) => {
+      {book_cover.map((img, i) => {
         const inputRange = [
-          (index - 1) * ANCHO_PANTALLA,
-          index * ANCHO_PANTALLA,
-          (index + 1) * ANCHO_PANTALLA,
+          (i - 1) * WIDTH_SCREEN,
+          i * WIDTH_SCREEN,
+          (i + 1) * WIDTH_SCREEN,
         ];
 
         const outputRange = [0, 1, 0];
@@ -47,12 +48,12 @@ function BackDrop({ scrollX }) {
 
         return (
           <Animated.Image
-            source={{ uri: imagen }}
-            key={index}
+            source={{ uri: img }}
+            key={i}
             blurRadius={10}
             style={[
               {
-                height: ALTURA_BACKDROP,
+                height: HEIGHT_BACKDROP,
                 width,
                 position: "absolute",
                 top: 0,
@@ -64,7 +65,7 @@ function BackDrop({ scrollX }) {
       })}
       <LinearGradient
         colors={["transparent", "white"]}
-        style={{ height: ALTURA_BACKDROP, width, position: "absolute", top: 0 }}
+        style={{ height: HEIGHT_BACKDROP, width, position: "absolute", top: 0 }}
       />
     </View>
   );
@@ -73,11 +74,11 @@ function BackDrop({ scrollX }) {
 export default function Page() {
   const scrollX = React.useRef(new Animated.Value(0)).current;
   return (
-    <SafeAreaView style={styles.bookContainer}>
+    <View>
       <BackDrop scrollX={scrollX} />
       <View>
         <Text style={styles.TitleTop}>
-          <Image style={styles.logo} source={require("@/assets/icon.png")} />
+          <Image style={styles.logo} source={logo} />
           Linword
         </Text>
       </View>
@@ -88,22 +89,22 @@ export default function Page() {
             [{ nativeEvent: { contentOffset: { x: scrollX } } }],
             { useNativeDriver: true }
           )}
-          data={portadasLibros}
+          data={book_cover}
           horizontal={true}
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{
             paddingTop: 50,
-            paddingHorizontal: ESPACIO_LATERAL,
+            paddingHorizontal: GAP_LATERAL
           }}
           decelerationRate={0}
-          snapToInterval={ANCHO_PANTALLA}
+          snapToInterval={WIDTH_SCREEN}
           scrollEventThrottle={16}
           keyExtractor={(item) => item}
           renderItem={({ item, index }) => {
             const inputRange = [
-              (index - 1) * ANCHO_PANTALLA,
-              index * ANCHO_PANTALLA,
-              (index + 1) * ANCHO_PANTALLA,
+              (index - 1) * WIDTH_SCREEN,
+              index * WIDTH_SCREEN,
+              (index + 1) * WIDTH_SCREEN,
             ];
 
             const outputRange = [0, -50, 0];
@@ -111,11 +112,11 @@ export default function Page() {
             const translateY = scrollX.interpolate({ inputRange, outputRange });
 
             return (
-              <View style={{ width: ANCHO_PANTALLA }}>
+              <View style={{ width: WIDTH_SCREEN }}>
                 <Animated.View
                   style={{
-                    marginHorizontal: ESPACIO,
-                    padding: ESPACIO,
+                    marginHorizontal: GAP,
+                    padding: GAP,
                     borderRadius: 35,
                     backgroundColor: "white",
                     alignItems: "flex-start",
@@ -216,7 +217,7 @@ export default function Page() {
           </View>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -247,11 +248,6 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     gap: 50,
     marginBottom: 0,
-  },
-  bookContainer: {
-    marginBottom: 55,
-    backgroundColor: "#FFF",
-    borderRadius: 10,
   },
   books: {
     flexDirection: "row",
@@ -284,7 +280,7 @@ const styles = StyleSheet.create({
   },
   ListadoLibros: {
     width: "100%",
-    height: ANCHO_PANTALLA * 1.2,
+    height: WIDTH_SCREEN * 1.2,
     resizeMode: "cover",
     borderRadius: 24,
     margin: 0,

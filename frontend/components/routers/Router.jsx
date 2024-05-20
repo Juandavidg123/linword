@@ -32,7 +32,7 @@ const Router = () => {
         options={{
           tabBarLabel: "Library",
           tabBarIcon: ({ color, size }) => (
-            <Icon name="account-child" size={size} color={color} />
+            <Icon name="library" size={size} color={color} />
           ),
         }}
       />
