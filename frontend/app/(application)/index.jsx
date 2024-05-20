@@ -7,9 +7,18 @@ import {
   Animated,
   ScrollView,
 } from "react-native";
-import { Button, Text, Divider, Chip } from "react-native-paper";
+import {
+  Button,
+  Divider,
+  Chip,
+  Modal,
+  Portal,
+  Text,
+  PaperProvider,
+} from "react-native-paper";
 import BackDrop, { book_cover } from "@/components/basic/BackDrop";
 import logo from "@/assets/icon.png";
+import axios from "axios";
 
 const width = Dimensions.get("window").width;
 const WIDTH_SCREEN = width * 0.7;
@@ -17,151 +26,198 @@ const GAP_LATERAL = (width - WIDTH_SCREEN) / 2;
 
 export default function Page() {
   const scrollX = React.useRef(new Animated.Value(0)).current;
+  const [visible, setVisible] = React.useState(false);
+  const [book, setBook] = React.useState("Selceciona un libro");
+
+  const showModal = async () => {
+    setVisible(true);
+    try {
+      const response = await axios.get(
+        `${process.env.EXPO_PUBLIC_API_URL}/book`
+      );
+      const number = Math.floor(Math.random() * 10);
+      console.log(response.data.books);
+
+      try {
+        setBook({
+          title: response.data.books[number][2],
+          txt: response.data.books[number][1],
+        });
+      } catch (error) {
+        console.log(error.message);
+      }
+    } catch (error) {
+      console.log(error, error.message);
+    }
+  };
+  const hideModal = () => {setVisible(false);setBook("Selecciona un libro")};
+  const containerStyle = { backgroundColor: "white", padding: 20 };
 
   return (
-    <View style={styles.SafeAreaView}>
-      <BackDrop scrollX={scrollX} />
-      <View>
-        <Text style={styles.TitleTop}>
-          <Image style={styles.logo} source={logo} />
-          Linword
-        </Text>
-      </View>
-      <ScrollView>
-        <Animated.FlatList
-          onScroll={Animated.event(
-            [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-            { useNativeDriver: true }
-          )}
-          data={book_cover}
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{
-            paddingTop: 50,
-            paddingHorizontal: GAP_LATERAL,
-          }}
-          decelerationRate={0}
-          snapToInterval={WIDTH_SCREEN}
-          scrollEventThrottle={16}
-          keyExtractor={(item) => item}
-          renderItem={({ item, index }) => {
-            const inputRange = [
-              (index - 1) * WIDTH_SCREEN,
-              index * WIDTH_SCREEN,
-              (index + 1) * WIDTH_SCREEN,
-            ];
-
-            const outputRange = [0, -50, 0];
-
-            const translateY = scrollX.interpolate({ inputRange, outputRange });
-
-            return (
-              <View style={{ width: WIDTH_SCREEN }}>
-                <Animated.View
-                  style={{
-                    marginHorizontal: 10,
-                    padding: 10,
-                    borderRadius: 35,
-                    backgroundColor: "white",
-                    alignItems: "flex-start",
-                    transform: [{ translateY }],
-                  }}
-                >
-                  <Image source={{ uri: item }} style={styles.ListadoLibros} />
-                </Animated.View>
-              </View>
-            );
-          }}
-        />
+    <>
+      <View style={styles.SafeAreaView}>
+        <BackDrop scrollX={scrollX} />
         <View>
-          <Text style={styles.Title}>Descubrir</Text>
-          <Divider />
+          <Text style={styles.TitleTop}>
+            <Image style={styles.logo} source={logo} />
+            Linword
+          </Text>
         </View>
-        <View style={styles.chipi}>
-          <Chip elevation={5} onPress={() => console.log("Pressed")}>
-            Animales
-          </Chip>
-          <Chip elevation={5} onPress={() => console.log("Pressed")}>
-            Espacial
-          </Chip>
-          <Chip elevation={5} onPress={() => console.log("Pressed")}>
-            Aventuras
-          </Chip>
-        </View>
-        <View
-          style={{
-            backgroundColor: "#F7F2FA",
-            borderRadius: 35,
-            marginTop: 10,
-          }}
+        <ScrollView>
+          <PaperProvider>
+            <Animated.FlatList
+              onScroll={Animated.event(
+                [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+                { useNativeDriver: true }
+              )}
+              data={book_cover}
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={{
+                paddingTop: 50,
+                paddingHorizontal: GAP_LATERAL,
+              }}
+              decelerationRate={0}
+              snapToInterval={WIDTH_SCREEN}
+              scrollEventThrottle={16}
+              keyExtractor={(item) => item}
+              renderItem={({ item, index }) => {
+                const inputRange = [
+                  (index - 1) * WIDTH_SCREEN,
+                  index * WIDTH_SCREEN,
+                  (index + 1) * WIDTH_SCREEN,
+                ];
+
+                const outputRange = [0, -50, 0];
+
+                const translateY = scrollX.interpolate({
+                  inputRange,
+                  outputRange,
+                });
+
+                return (
+                  <View style={{ width: WIDTH_SCREEN }}>
+                    <Animated.View
+                      style={{
+                        marginHorizontal: 10,
+                        padding: 10,
+                        borderRadius: 35,
+                        backgroundColor: "white",
+                        alignItems: "flex-start",
+                        transform: [{ translateY }],
+                      }}
+                    >
+                      <Image
+                        source={{ uri: item }}
+                        style={styles.ListadoLibros}
+                      />
+                    </Animated.View>
+                  </View>
+                );
+              }}
+            />
+            <View>
+              <Text style={styles.Title}>Descubrir</Text>
+              <Divider />
+            </View>
+            <View style={styles.chipi}>
+              <Chip elevation={5} onPress={() => console.log("Pressed")}>
+                Animales
+              </Chip>
+              <Chip elevation={5} onPress={() => console.log("Pressed")}>
+                Espacial
+              </Chip>
+              <Chip elevation={5} onPress={() => console.log("Pressed")}>
+                Aventuras
+              </Chip>
+            </View>
+            <View
+              style={{
+                backgroundColor: "#F7F2FA",
+                borderRadius: 35,
+                marginTop: 10,
+              }}
+            >
+              <View style={styles.books}>
+                <Image
+                  style={styles.portadas}
+                  source={{
+                    uri: "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1387077522i/19471915.jpg",
+                  }}
+                />
+                <Image
+                  style={styles.portadas}
+                  source={{
+                    uri: "https://www.picarona.net/wp-content/uploads/2016/01/20150701101706.jpg",
+                  }}
+                />
+              </View>
+              <View style={styles.Botones}>
+                <Button
+                  style={styles.Botonleer}
+                  icon="glasses"
+                  mode="contained"
+                  onPress={showModal}
+                >
+                  Leer
+                </Button>
+                <Button
+                  style={styles.Botonleer}
+                  icon="glasses"
+                  mode="contained"
+                  onPress={showModal}
+                >
+                  Leer
+                </Button>
+              </View>
+              <View style={styles.books}>
+                <Image
+                  style={styles.portadas}
+                  source={{
+                    uri: "https://images.cdn1.buscalibre.com/fit-in/360x360/f6/5e/f65e3fedc2a233b39a63403c0fe28bb5.jpg",
+                  }}
+                />
+                <Image
+                  style={styles.portadas}
+                  source={{
+                    uri: "https://images.cdn1.buscalibre.com/fit-in/360x360/43/b0/43b064a77a3e56ad9b0f16ed2f21a1f6.jpg",
+                  }}
+                />
+              </View>
+              <View style={styles.Botones}>
+                <Button
+                  style={styles.Botonleer}
+                  icon="glasses"
+                  mode="contained"
+                  onPress={showModal}
+                >
+                  Leer
+                </Button>
+                <Button
+                  style={styles.Botonleer}
+                  icon="glasses"
+                  mode="contained"
+                  onPress={showModal}
+                >
+                  Leer
+                </Button>
+              </View>
+            </View>
+          </PaperProvider>
+          <View style={{ height: 85 }}></View>
+        </ScrollView>
+      </View>
+      <Portal>
+        <Modal
+          visible={visible}
+          onDismiss={hideModal}
+          contentContainerStyle={containerStyle}
         >
-          <View style={styles.books}>
-            <Image
-              style={styles.portadas}
-              source={{
-                uri: "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1387077522i/19471915.jpg",
-              }}
-            />
-            <Image
-              style={styles.portadas}
-              source={{
-                uri: "https://www.picarona.net/wp-content/uploads/2016/01/20150701101706.jpg",
-              }}
-            />
-          </View>
-          <View style={styles.Botones}>
-            <Button
-              style={styles.Botonleer}
-              icon="glasses"
-              mode="contained"
-              onPress={() => console.log("Pressed")}
-            >
-              Leer
-            </Button>
-            <Button
-              style={styles.Botonleer}
-              icon="glasses"
-              mode="contained"
-              onPress={() => console.log("Pressed")}
-            >
-              Leer
-            </Button>
-          </View>
-          <View style={styles.books}>
-            <Image
-              style={styles.portadas}
-              source={{
-                uri: "https://images.cdn1.buscalibre.com/fit-in/360x360/f6/5e/f65e3fedc2a233b39a63403c0fe28bb5.jpg",
-              }}
-            />
-            <Image
-              style={styles.portadas}
-              source={{
-                uri: "https://images.cdn1.buscalibre.com/fit-in/360x360/43/b0/43b064a77a3e56ad9b0f16ed2f21a1f6.jpg",
-              }}
-            />
-          </View>
-          <View style={styles.Botones}>
-            <Button
-              style={styles.Botonleer}
-              icon="glasses"
-              mode="contained"
-              onPress={() => console.log("Pressed")}
-            >
-              Leer
-            </Button>
-            <Button
-              style={styles.Botonleer}
-              icon="glasses"
-              mode="contained"
-              onPress={() => console.log("Pressed")}
-            >
-              Leer
-            </Button>
-          </View>
-        </View>
-      </ScrollView>
-    </View>
+          <Text>{book.title}</Text>
+          <Text>{book.txt}</Text>
+        </Modal>
+      </Portal>
+    </>
   );
 }
 
