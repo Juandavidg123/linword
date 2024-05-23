@@ -142,13 +142,13 @@ export default function Page() {
                 <Image
                   style={styles.portadas}
                   source={{
-                    uri: "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1387077522i/19471915.jpg",
+                    uri: "https://th.bing.com/th/id/OIP.V_u_E4WlM9e06BlitCQDIAHaKN?rs=1&pid=ImgDetMain",
                   }}
                 />
                 <Image
                   style={styles.portadas}
                   source={{
-                    uri: "https://www.picarona.net/wp-content/uploads/2016/01/20150701101706.jpg",
+                    uri: "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1469392221i/31210898.jpg",
                   }}
                 />
               </View>
@@ -174,7 +174,7 @@ export default function Page() {
                 <Image
                   style={styles.portadas}
                   source={{
-                    uri: "https://images.cdn1.buscalibre.com/fit-in/360x360/f6/5e/f65e3fedc2a233b39a63403c0fe28bb5.jpg",
+                    uri: "https://editoresmexicanosunidos.mx/wp-content/uploads/2022/02/UNMUNDOFEMUBE9786071415615.png",
                   }}
                 />
                 <Image
